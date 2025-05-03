@@ -4,13 +4,26 @@ terraform {
       source = "hashicorp/local"
       version = "2.5.2"
     }
+
+    random = {
+      source = "hashicorp/random"
+      version = "3.7.2"
+    }
   }
+}
+
+resource "random_pet" "meu_pet" {
+  length = 3
+  prefix = "Sr."
+  separator = " "
 }
 
 resource "local_file" "exemplo" {
   filename = "exemplo.txt"
   content  = <<EOF
 Conteúdo: ${var.file_content}
+
+Meu pet: ${random_pet.meu_pet.id}
 
 Valor boolean: ${var.var_bool}
   
@@ -25,4 +38,8 @@ Idade: ${var.person_tuple[1]}
 Name: ${var.person_object.name}
 Idade: ${var.person_object.age}
 EOF 
+}
+
+output "name_my_pet" {
+  value = "Esse é o nome do meu pet: ${random_pet.meu_pet.id}"
 }
