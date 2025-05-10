@@ -43,3 +43,9 @@ variable "person_object" {
   })
   
 }
+
+variable "person" {
+  default = "Ana"
+  description = "Uma variável de string com o nome de uma pessoa"
+  type        = string
+}
